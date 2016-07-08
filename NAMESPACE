@@ -1,0 +1,17 @@
+import('httr')
+import('methods')
+importFrom('jsonlite', 'fromJSON')
+importFrom("graphics", "barplot", "par")
+
+export('queryDGIdb')
+export('sourceDatabases')
+export('interactionTypes')
+export('geneCategories')
+
+#export('rDGIdbResult')
+export('resultSummary')
+export('searchTermSummary')
+export('byGene')
+export('detailedResults')
+
+export('plotInteractionsBySource')

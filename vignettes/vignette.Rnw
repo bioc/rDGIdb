@@ -1,0 +1,210 @@
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Query DGIdb using R}
+
+<<init, eval=TRUE, results='hide', echo=FALSE, cache=FALSE>>=
+knitr::opts_chunk$set(cache=FALSE, echo=FALSE, eval=TRUE)
+@
+
+\documentclass{article}
+
+<<style-knitr, results="asis">>=
+BiocStyle::latex()
+@
+
+\bioctitle[Query DGIdb using R]{A wrapper to query DGIdb using R}
+\author{Thomas Thurnherr\footnote{thomas.thurnherr@bsse.ethz.ch}, Franziska
+Singer, Niko Beerenwinkel}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Annotation and interpretation of DNA aberrations identified through
+next-generation sequencing is becoming an increasingly important task,
+especially in the context of data analysis pipelines for medical applications,
+where aberrations are associated with phenotypic and clinical features.
+A possible approach for annotation is to identify drugs as potential
+targets for aberrated genes or pathways. DGIdb \cite{Wagner2015}
+accumulates data from 15 different gene-target interaction resources and allows
+querying these through their web interface as well as public API. rDGIdb is a
+wrapper to query DGIdb using R/Bioconductor. The package provides
+its output in a similar format as the web interface, and thereby allows
+integration of DGIdb queries into bioinformatic pipelines.
+\end{abstract}
+\tableofcontents
+
+\section{Standard workflow}
+
+To query DGIdb, we first load the package.
+
+<<load-package, echo=TRUE, results='hide'>>=
+library(rDGIdb)
+@
+
+Next, we prepare a list of genes for which we want to query drug targets.
+These can either be typed manually or loaded from a file.
+The genes have to be provided as a character vector.
+
+<<gene-list, echo=TRUE, results='hide'>>=
+genes <- c("TNF", "AP1", "AP2", "XYZA")
+@
+
+Here, we purposely use a non-existant gene name \verb+XYZA+ for illustration.
+
+With this vector of genes, we can query DGIdb using the \verb+queryDGIdb()+
+function. The argument \verb+genes+ is a required argument, all other arguments
+are optional. These optional arguments are used as filters. If they are not
+provided, the query returns all results for a specific gene. See further below
+for more details on optional arguments.
+
+<<query-dgidb-1, echo=TRUE, results='hide'>>=
+result <- queryDGIdb(genes)
+@
+
+\subsection{Accessing query results}
+
+After querying, we access the \verb+rDGIdbResult+ object that was returned by
+\verb+queryDGIdb+. The S4 class \verb+rDGIdbResult+ contains several tables
+(\verb+data.frame+), which roughly reflect each result tab on the DGIdb web
+interface at \url{http://dgidb.genome.wustl.edu}.
+
+The results are available in the following four formats:
+
+\vspace{\baselineskip}
+\begin{description}
+\item[Result summary] Drug-gene interactions summarized by the source(s) that
+reported them.\\
+\item[Detailed results] Search terms matching exactly one gene that has one or
+more drug interactions.\\
+\item[By gene] Drug interaction count and druggable categories associated with
+each gene.\\
+\item[Search term summary] Summary of the attempt to map gene names supplied by
+the user to gene records in DGIdb.
+\end{description}
+
+\vspace{\baselineskip}
+The results can be accessed through helper functions.
+
+<<access-result-details, echo=TRUE, results='hide'>>=
+## Result summary
+resultSummary(result)
+
+## Detailed results
+detailedResults(result)
+
+## By gene
+byGene(result)
+
+## Search term summary
+searchTermSummary(result)
+@
+
+\subsection{Using optional query arguments}
+
+There are three optional arguments to \verb+queryDGIdb+.
+
+<<query-dgidb-stab, echo=TRUE, results='hide'>>=
+queryDGIdb(genes = genes,
+    sourceDatabases = NULL,
+    geneCategories = NULL,
+    interactionTypes = NULL)
+@
+
+The package provides helper functions to list possible values for
+these optional arguments.
+
+<<argument-options, echo=TRUE, results='markup'>>=
+## Available source databases
+sourceDatabases()
+
+## Available gene categories
+geneCategories()
+
+## Available interaction types
+interactionTypes()
+@
+
+%' If you prefer to provide all arguments, we can also use these functions to
+%' query without filtering source databases, gene categories, or interaction
+%' types.
+%'
+%' <<no-filtering, echo=TRUE, results='hide'>>=
+%' queryDGIdb(genes,
+%'             sourceDatabases = sourceDatabases(),
+%'             geneCategories = geneCategories(),
+%'             interactionTypes = interactionTypes())
+%' @
+
+
+Perhaps we are only intersted in a subset of available source databases,
+gene categories, or interaction types. Using the list above, we can make the
+query more specific by adding filters.
+
+For example, with a given set of genes, we only want interactions
+from \verb+DrugBank+ and \verb+MyCancerGenome+. In addition, genes have to
+have the attribute: \verb+clinically actionable+; and interactions
+have to show at least one of these labels: \verb+suppressor+, \verb+activator+,
+or \verb+blocker+.
+
+We can query DGIdb using the function call below.
+
+<<query-dgidb-optional, echo=TRUE, results='hide'>>=
+resultFilter <- queryDGIdb(genes,
+                sourceDatabases = c("DrugBank","MyCancerGenome"),
+                geneCategories = "clinically actionable",
+                interactionTypes = c("suppressor","activator","blocker"))
+@
+
+In case no gene-drug interaction satisfies these conditions, the result is
+returned empty.
+
+\subsection{Basic visualization of results}
+
+The package also provides basic visualization functionality for query
+results. \verb+plotInteractionsBySource+ generates a bar plot that shows how
+many interactions were reported for each source. As input the function requires
+the query result object of class \verb+rDGIdbResult+. Additional arguments
+are passed to the \verb+barplot+.
+
+<<bp-figure-setup, echo=FALSE, results='hide'>>=
+h <- '0.5\\linewidth'
+w <- '0.7\\linewidth'
+c <- 'center'
+@
+
+<<bp,echo=TRUE,fig.align=c,fig.height=5,fig.width=7,out.height=h,out.width=w>>=
+plotInteractionsBySource(result, main = "Number of interactions by source")
+@
+
+\section{How to get help}
+Please consult the package documentation first.
+
+<<questions, echo=TRUE, results='hide'>>=
+?queryDGIdb
+?rDGIdbFilters
+?rDGIdbResult
+?plotInteractionsBySource
+@
+
+If this does not solve your problem, we are happy to help you. Questions
+regarding the rDGIdb package should be posted to the Bioconductor support site:
+\url{https://support.bioconductor.org}, which serves as a repository of
+questions and answers. This way, other people can benefit from questions and
+corresponding answers, which minimizes efforts by the developers.
+
+\section{Session info}
+<<session-info, results="asis">>=
+toLatex(sessionInfo())
+@
+
+\section{Citing this package}
+If you use this package for published research, please cite the package as well
+as DGIdb.
+
+<<citation, echo=TRUE, results='hide'>>=
+citation('rDGIdb')
+@
+
+\bibliography{references}
+
+\end{document}

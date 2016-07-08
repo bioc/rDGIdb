@@ -1,0 +1,7 @@
+rDGIdb v1.0.0 (Release date: 2016-05)
+==============
+Changes:
+* First release of package.
+* Query gene-drug interaction from a list of genes.
+* Filter source databases, interaction types, and gene categories.
+* Plot number of interactions by source.

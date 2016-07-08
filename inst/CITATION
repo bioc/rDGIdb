@@ -1,0 +1,36 @@
+citHeader("To cite rDGIdb in publications use:")
+
+bibentry(bibtype = "Manual",
+        title = "rDGIdb: A wrapper to query DGIdb",
+        author = "Thomas Thurnherr and Franziska Singer and Niko Beerenwinkel",
+#        journal = "F1000 Research",
+        year = "2016",
+        note = "R/Bioconductor package",
+#        volume = "00",
+#        number = "0",
+#        pages = "0--0",
+#        doi = "",
+
+textVersion = paste("Thurnherr T, Singer F, and Beerenwinkel N (2016).",
+        "rDGIdb: A wrapper to query DGIdb.",
+        "R/Bioconductor package.")
+#        "F1000 resarch, 40(1), 1-29.",
+#        "F1000 research.",
+#        "doi:"
+)
+
+bibentry(bibtype = "article",
+            doi = "10.1093/nar/gkv1165",
+            url = "http://dx.doi.org/10.1093/nar/gkv1165",
+            year = "2015",
+            month = "nov",
+            publisher = "Oxford {U}niversity {P}ress ({OUP})",
+            volume = "44",
+            number = "D1",
+            pages = "D1036--D1044",
+            author = "Alex H. Wagner and Adam C. Coffman and Benjamin J. Ainscough and Nicholas C. Spies and Zachary L. Skidmore and Katie M. Campbell and Kilannin Krysiak and Deng Pan and Joshua F. McMichael and James M. Eldred and Jason R. Walker and Richard K. Wilson and Elaine R. Mardis and Malachi Griffith and Obi L. Griffith",
+            title = "{DGIdb} 2.0: mining clinically relevant drug{\textendash}gene interactions",
+            journal = "Nucleic Acids Res",
+
+            textVersion = "Wagner AH, Coffman AC, Ainscough BJ, Spies NC, Skidmore ZL, Campbell KM, Krysiak K, Pan D, McMichael JF, Eldred JM, Walker JR, Wilson RK, Mardis ER, Griffith M, Griffith OL. DGIdb 2.0: mining clinically relevant drug-gene interactions. Nucleic Acids Research. 2016 Jan 4;44(D1):D1036-44. doi:10.1093/nar/gkv1165."
+)
