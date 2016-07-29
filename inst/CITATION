@@ -2,7 +2,7 @@ citHeader("To cite rDGIdb in publications use:")
 
 bibentry(bibtype = "Manual",
         title = "rDGIdb: A wrapper to query DGIdb",
-        author = "Thomas Thurnherr and Franziska Singer and Niko Beerenwinkel",
+        author = "Thomas Thurnherr and Franziska Singer and Daniel J. Stekhoven and Niko Beerenwinkel",
 #        journal = "F1000 Research",
         year = "2016",
         note = "R/Bioconductor package",
@@ -11,7 +11,7 @@ bibentry(bibtype = "Manual",
 #        pages = "0--0",
 #        doi = "",
 
-textVersion = paste("Thurnherr T, Singer F, and Beerenwinkel N (2016).",
+textVersion = paste("Thurnherr T, Singer F, Stekhoven DJ and Beerenwinkel N (2016).",
         "rDGIdb: A wrapper to query DGIdb.",
         "R/Bioconductor package.")
 #        "F1000 resarch, 40(1), 1-29.",

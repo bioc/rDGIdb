@@ -13,7 +13,7 @@ BiocStyle::latex()
 
 \bioctitle[Query DGIdb using R]{A wrapper to query DGIdb using R}
 \author{Thomas Thurnherr\footnote{thomas.thurnherr@bsse.ethz.ch}, Franziska
-Singer, Niko Beerenwinkel}
+Singer, Daniel J. Stekhoven, Niko Beerenwinkel}
 
 \begin{document}
 \maketitle
