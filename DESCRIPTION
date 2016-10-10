@@ -1,7 +1,7 @@
 Package: rDGIdb
 Type: Package
 Title: R Wrapper for DGIdb
-Version: 0.99.5
+Version: 0.99.6
 Author: Thomas Thurnherr, Franziska Singer, Daniel J. Stekhoven, and Niko Beerenwinkel
 Maintainer: Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
 Description: The rDGIdb package provides a wrapper for the Drug Gene
@@ -12,7 +12,7 @@ Description: The rDGIdb package provides a wrapper for the Drug Gene
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports: jsonlite,httr,methods,graphics
-Collate: rDGIdbResult.R queryDGIdb.R plotInteractionsBySource.R
+Collate: rDGIdbResult.R queryDGIdb.R plotInteractionsBySource.R resourceVersions.R
 biocViews:
         Software,ResearchField,Pharmacogenetics,Pharmacogenomics,FunctionalGenomics,WorkflowStep,Annotation
 VignetteBuilder: knitr

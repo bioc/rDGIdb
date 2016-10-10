@@ -13,5 +13,5 @@ export('resultSummary')
 export('searchTermSummary')
 export('byGene')
 export('detailedResults')
-
+export('resourceVersions')
 export('plotInteractionsBySource')

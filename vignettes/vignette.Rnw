@@ -24,9 +24,9 @@ next-generation sequencing is becoming an increasingly important task,
 especially in the context of data analysis pipelines for medical applications,
 where aberrations are associated with phenotypic and clinical features.
 A possible approach for annotation is to identify drugs as potential
-targets for aberrated genes or pathways. DGIdb \cite{Wagner2015}
-accumulates data from 15 different gene-target interaction resources and allows
-querying these through their web interface as well as public API. rDGIdb is a
+targets for aberrated genes or pathways. DGIdb accumulates data from 15 
+different gene-target interaction resources and allows querying these through 
+their web interface as well as public API. rDGIdb is a
 wrapper to query DGIdb using R/Bioconductor. The package provides
 its output in a similar format as the web interface, and thereby allows
 integration of DGIdb queries into bioinformatic pipelines.
@@ -35,23 +35,23 @@ integration of DGIdb queries into bioinformatic pipelines.
 
 \section{Standard workflow}
 
-To query DGIdb, we first load the package.
+To query DGIdb \cite{Wagner2015}, we first load the package.
 
 <<load-package, echo=TRUE, results='hide'>>=
 library(rDGIdb)
 @
 
 Next, we prepare a list of genes for which we want to query drug targets.
-These can either be typed manually or loaded from a file.
-The genes have to be provided as a character vector.
+If you already have a list of genes with variants, these can either be loaded 
+from a file or typed manually. Genes have to be provided as a character vector.
+
+Here, we purposely use a non-existant gene name \verb+XYZA+ for illustration.
 
 <<gene-list, echo=TRUE, results='hide'>>=
 genes <- c("TNF", "AP1", "AP2", "XYZA")
 @
 
-Here, we purposely use a non-existant gene name \verb+XYZA+ for illustration.
-
-With this vector of genes, we can query DGIdb using the \verb+queryDGIdb()+
+With a vector of genes, we can query DGIdb using the \verb+queryDGIdb()+
 function. The argument \verb+genes+ is a required argument, all other arguments
 are optional. These optional arguments are used as filters. If they are not
 provided, the query returns all results for a specific gene. See further below
@@ -174,6 +174,34 @@ c <- 'center'
 
 <<bp,echo=TRUE,fig.align=c,fig.height=5,fig.width=7,out.height=h,out.width=w>>=
 plotInteractionsBySource(result, main = "Number of interactions by source")
+@
+
+\subsection{Version numbers of DGIdb resources}
+
+DGIdb may no use the latest version of each resources it integrates. The current 
+version numbers of all resources can be printed using \verb+resourceVersions+.
+
+<<resource-versions, echo=FALSE, results='hide'>>=
+resourceVersions()
+@
+
+\subsection{Input in VCF file format}
+From a variant call format (VCF) file, variants can be annotated within R using 
+the variant annotation workflow provided by the \verb+VariantAnnotation+ package
+from Bioconductor \cite{Obenchain15072014}. For more information on how to 
+filter variants, please see the package documentation/vignette.
+
+<<variant-annotation, echo=TRUE, results='hide', eval=FALSE>>=
+library("VariantAnnotation")
+library("TxDb.Hsapiens.UCSC.hg19.knownGene")
+library("org.Hs.eg.db")
+vcf <- readVcf("file.vcf.gz", "hg19")
+seqlevels(vcf) <- paste("chr", seqlevels(vcf), sep = "")
+rd <- rowRanges(vcf)
+loc <- locateVariants(rd, TxDb.Hsapiens.UCSC.hg19.knownGene, CodingVariants())
+symbols <- select(x = org.Hs.eg.db, keys = mcols(loc)$GENEID, 
+                columns = "SYMBOL", keytype = "ENTREZID")
+genes <- unique(symbols$SYMBOL)
 @
 
 \section{How to get help}
