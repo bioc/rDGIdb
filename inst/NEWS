@@ -1,3 +1,16 @@
+rDGIdb v1.2.1
+==============
+Chances:
+* Fixed a bad test case after DB update
+* Added more test cases
+
+rDGIdb v1.2.0
+==============
+Changes:
+* Added missing author
+* Added resourceVersions function to query the version for each resource (requested by reviewer)
+* Updated citation after publication of manuscript
+
 rDGIdb v1.0.0 (Release date: 2016-05)
 ==============
 Changes:
