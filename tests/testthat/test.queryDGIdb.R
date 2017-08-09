@@ -17,10 +17,10 @@ test_that("Wrong gene names becomes unmatched terms", {
     expect_match(queryDGIdb(genes = c("XYZA", "XYZB"))@unmatchedTerms$searchTerm, "XYZA, XYZB")
 })
 
-test_that("Query DGIdb works", {
+test_that("Query DGIdb and result summary works", {
     result <- queryDGIdb(genes = "BRAF")
-    expect_equal(nrow(result@resultSummary), 17)
-    expect_equal(result@resultSummary$Score[1], 12)
+    expect_false(is.null(result@resultSummary) || is.na(result@resultSummary))
+    expect_true(nrow(result@resultSummary > 0) & ncol(result@resultSummary > 0))
 })
 
 test_that("Returns the right result", {
@@ -31,4 +31,16 @@ test_that("Returns the right result", {
     expect_match(result$unmatchedTerms$searchTerm, "XYZA")
     expect_match(result$matchedTerms$searchTerm, "BRAF")
     expect_is(result$matchedTerms$interactions[[1]], 'data.frame')
+})
+
+test_that("Resource versions are returned", {
+    versions <- resourceVersions()
+    expect_false(is.null(versions) || is.na(versions))
+    expect_true(nrow(versions) > 0 & ncol(versions) == 2)
+})
+
+test_that("Helper functions return something", {
+    expect_true(is.character(geneCategories()))
+    expect_true(is.character(interactionTypes()))
+    expect_true(is.character(sourceDatabases()))
 })
