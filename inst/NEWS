@@ -1,6 +1,13 @@
+rDGIdb v1.2.2
+==============
+Changes:
+* Upgraded to DGIdb API version 2
+* PMIDs are now available and count towards score
+* Query source databases, interation types and gene categories through DGIdb API
+
 rDGIdb v1.2.1
 ==============
-Chances:
+Changes:
 * Fixed a bad test case after DB update
 * Added more test cases
 

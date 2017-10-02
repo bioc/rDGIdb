@@ -9,35 +9,9 @@ function is implemented to reflect the as good as possible the web-interface.
 }
 \usage{
 queryDGIdb(genes,
-        sourceDatabases = c("CIViC","CancerCommons","ChEMBL",
-            "ClearityFoundationBiomarkers","ClearityFoundationClinicalTrial",
-            "DoCM","DrugBank","GuideToPharmacologyInteractions",
-            "MyCancerGenome","MyCancerGenomeClinicalTrial","PharmGKB","TALC",
-            "TEND","TTD","TdgClinicalTrial"),
-        geneCategories = c("abc transporter","b30_2 spry domain",
-            "cell surface","clinically actionable","cytochrome p450",
-            "dna directed rna polymerase","dna repair","drug metabolism",
-            "drug resistance","druggable genome","exchanger",
-            "external side of plasma membrane","fibrinogen",
-            "g protein coupled receptor","growth factor","histone modification",
-            "hormone activity","ion channel","kinase","lipase","lipid kinase",
-            "methyl transferase","myotubularin related protein phosphatase",
-            "neutral zinc metallopeptidase","nuclear hormone receptor",
-            "phosphatidylinositol 3 kinase","phospholipase","protease",
-            "protease inhibitor","protein phosphatase","pten family",
-            "rna directed dna polymerase","serine threonine kinase",
-            "short chain dehydrogenase reductase","thioredoxin",
-            "transcription factor binding","transcription factor complex",
-            "transporter","tumor suppressor","tyrosine kinase","unknown"),
-        interactionTypes = c("activator","adduct","agonist",
-            "allosteric modulator","antagonist","antibody","antisense",
-            "antisense oligonucleotide","binder","blocker","chaperone",
-            "cleavage","cofactor","competitive","immunotherapy","inducer",
-            "inhibitor","inhibitory allosteric modulator","inverse agonist",
-            "ligand","modulator","multitarget","n/a","negative modulator",
-            "other/unknown","partial agonist","partial antagonist",
-            "positive allosteric modulator","potentiator","product of",
-            "stimulator","suppressor","vaccine"))
+        sourceDatabases = NULL,
+        geneCategories = NULL,
+        interactionTypes = NULL)
 }
 \arguments{
     \item{genes}{
@@ -45,15 +19,18 @@ A character vector of genes for which drug interactions are queried.
 }
     \item{sourceDatabases}{
 A character vector of source databases to be queried. To query all
-available databases, skip argument or use \code{sourceDatabases()}.
+available databases, skip argument or use \code{NULL}. To see available options,
+type \code{sourceDatabases()}.
 }
     \item{geneCategories}{
 A character vector of gene categories to be queried. To query for all
-gene categories, skip argument or use \code{geneCategories()}.
+gene categories, skip argument or use \code{NULL}. To see available options,
+type \code{geneCategories()}.
 }
     \item{interactionTypes}{
 A character vector of interaction types to be queried. To query for all
-interaction types, skip argument or use \code{interactionTypes()}.
+interaction types, skip argument or use \code{NULL}. To see available options,
+type \code{interactionTypes()}.
 }
 }
 
@@ -75,7 +52,7 @@ interactions. Nucleic Acids Research. 2016 Jan 4;44(D1):D1036-44.
 doi:10.1093/nar/gkv1165.
 }
 \author{
-Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
+Thomas Thurnherr <thomas.thurnherr@gmail.com>
 }
 
 \seealso{
@@ -88,7 +65,7 @@ result <- queryDGIdb(genes = genes)
 
 result <- queryDGIdb(genes = genes,
                 sourceDatabases = c("MyCancerGenome","TEND","TTD"),
-                geneCategories = "cell surface",
+                geneCategories = "CELL SURFACE",
                 interactionTypes = c("activator","inhibitor"))
 }
 \keyword{ ~interface }

@@ -9,7 +9,8 @@ resourceVersions <- function() {
     text <- getWebsite(url)
     array <- strsplit(text, '\n')[[1]]
     interactionId <- grep('class=\'interaction', array)
-    name <- sapply(array[interactionId + 4], function(x) strsplit(x, '<|>', )[[1]][3])
+    name <- sapply(array[interactionId + 4], 
+                   function(x) { strsplit(x, '<|>', )[[1]][3] } )
     version <- array[interactionId + 17]
     result <- data.frame(cbind(name, version), stringsAsFactors = FALSE)
     colnames(result) <- c('Name', 'Version')

@@ -77,7 +77,7 @@ doi:10.1093/nar/gkv1165.
 }
 
 \author{
-Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
+Thomas Thurnherr <thomas.thurnherr@gmail.com>
 }
 
 \seealso{

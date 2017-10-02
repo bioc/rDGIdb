@@ -12,10 +12,11 @@ BiocStyle::latex()
 @
 
 \bioctitle[Query DGIdb using R]{A wrapper to query DGIdb using R}
-\author{Thomas Thurnherr\footnote{thomas.thurnherr@bsse.ethz.ch}, Franziska
+\author{Thomas Thurnherr\footnote{thomas.thurnherr@gmail.com}, Franziska
 Singer, Daniel J. Stekhoven, Niko Beerenwinkel}
 
 \begin{document}
+%\SweaveOpts{concordance=TRUE}
 \maketitle
 
 \begin{abstract}
@@ -151,7 +152,7 @@ We can query DGIdb using the function call below.
 <<query-dgidb-optional, echo=TRUE, results='hide'>>=
 resultFilter <- queryDGIdb(genes,
                 sourceDatabases = c("DrugBank","MyCancerGenome"),
-                geneCategories = "clinically actionable",
+                geneCategories = "CLINICALLY ACTIONABLE",
                 interactionTypes = c("suppressor","activator","blocker"))
 @
 

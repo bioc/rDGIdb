@@ -26,7 +26,7 @@ interactions. Nucleic Acids Research. 2016 Jan 4;44(D1):D1036-44.
 doi:10.1093/nar/gkv1165.
 }
 \author{
-Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
+Thomas Thurnherr <thomas.thurnherr@gmail.com>
 }
 
 \seealso{

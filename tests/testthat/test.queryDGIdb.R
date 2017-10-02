@@ -14,7 +14,7 @@ test_that("Wrong optional arguments", {
 })
 
 test_that("Wrong gene names becomes unmatched terms", {
-    expect_match(queryDGIdb(genes = c("XYZA", "XYZB"))@unmatchedTerms$searchTerm, "XYZA, XYZB")
+    expect_match(queryDGIdb(genes = c("XYZA", "XYZB"))@unmatchedTerms, c("XYZA, XYZB"))
 })
 
 test_that("Query DGIdb and result summary works", {
@@ -28,7 +28,7 @@ test_that("Returns the right result", {
         interactionSources = "ChEMBL,MyCancerGenome",
         geneCategories = "clinically actionable",
         interactionTypes = "n/a,inhibitor")
-    expect_match(result$unmatchedTerms$searchTerm, "XYZA")
+    expect_match(result$unmatchedTerms, "XYZA")
     expect_match(result$matchedTerms$searchTerm, "BRAF")
     expect_is(result$matchedTerms$interactions[[1]], 'data.frame')
 })

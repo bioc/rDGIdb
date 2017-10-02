@@ -14,7 +14,7 @@
     version numbers of the resources.
 }
 \author{
-    Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
+    Thomas Thurnherr <thomas.thurnherr@gmail.com>
 }
 \seealso{
     \url{http://dgidb.genome.wustl.edu/sources}

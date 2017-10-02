@@ -36,7 +36,7 @@ doi:10.1093/nar/gkv1165.
 }
 
 \author{
-Thomas Thurnherr <thomas.thurnherr@bsse.ethz.ch>
+Thomas Thurnherr <thomas.thurnherr@gmail.com>
 }
 \seealso{
 \code{\link{queryDGIdb}}, \code{\linkS4class{rDGIdbResult}},
@@ -47,9 +47,9 @@ geneCategories()
 interactionTypes()
 sourceDatabases()
 res <- queryDGIdb(genes = "AP1",
-            interactionTypes = interactionTypes(),
-            geneCategories = geneCategories(),
-            sourceDatabases = sourceDatabases())
+            interactionTypes = NULL,
+            geneCategories = NULL,
+            sourceDatabases = NULL)
 }
 \keyword{ ~interface }
 \keyword{ ~database }
