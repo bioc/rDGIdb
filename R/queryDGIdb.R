@@ -86,14 +86,14 @@ queryDGIdb <- function(genes,
     result <- setResultSummary(result)
     
     # Populate by gene table
-    result <- setByGene(result)
+    #result <- setByGene(result)
     
     # Populate search term summary
-    result <- setSearchTermSummary(result)
+    #result <- setSearchTermSummary(result)
     
     #Populate detailed results
-    if (nrow(result@resultSummary) > 0)
-    result <- setDetailedResults(result)
+    #if (nrow(result@resultSummary) > 0)
+    #result <- setDetailedResults(result)
   }
   
   return(result)
@@ -106,9 +106,9 @@ queryDgidbPost <- function(genes, interactionSources, geneCategories,
                            interactionTypes) {
   url <- "http://dgidb.genome.wustl.edu/api/v2/interactions.json"
   body <- list(genes = paste(genes, collapse = ","),
-               interaction_sources = interactionSources,
-               gene_categories = geneCategories,
-               interaction_types = interactionTypes)
+               interaction_sources = paste(interactionSources, collapse = ","),
+               gene_categories = paste(geneCategories, collapse = ","),
+               interaction_types = paste(interactionTypes, collapse = ","))
   #source_trust_levels = trustLevel)
   body <- body[!sapply(body, is.null)]
   postRequest <- POST(url = url, body = body, encode = 'multipart')

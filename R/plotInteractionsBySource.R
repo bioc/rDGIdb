@@ -9,7 +9,7 @@ plotInteractionsBySource <- function(queryResult, ...) {
     }
 
     data <- resultSummary(queryResult)
-    columnSums <- sort(colSums(data[,3:(ncol(data) - 1)]), decreasing = TRUE)
+    columnSums <- sort(colSums(data[,3:(ncol(data) - 2)]), decreasing = TRUE)
     op <- par(mar = c(5,13,3,1))
     barplot(columnSums, las = 2, las = 1, horiz = TRUE,
             xlab = "Number of interactions", ... = ...)

@@ -39,29 +39,29 @@ setGeneric(name = "setResultSummary",
              standardGeneric("setResultSummary")
 )
 setMethod(f = "setResultSummary", definition = function(theObject) {
-  # List of sources for which interactions were found with the genes given
-  uniqueSources <- unique(unlist(sapply(
-    theObject@data$interactions,
-    function(x) {unique(x$source)}, simplify = FALSE)))
-  
-  # Summarize interactions similar to web interface
-  interactionList <- lapply(theObject@data$geneName[
-    sapply(theObject@data$interactions, length) != 0],
-    getResultSummary, theObject@data, uniqueSources)
-  interactionData <- data.frame(do.call(rbind, interactionList),
-                                stringsAsFactors = FALSE)
-  
-  if(nrow(interactionData) > 0) {
-    # Convert DB and other columns to numeric
-    interactionData[,3:ncol(interactionData)] <-
-      sapply(3:ncol(interactionData),
-             function(x) as.numeric(interactionData[,x]))
-    interactionData <- interactionData[order(interactionData$Score,
-                                             decreasing = TRUE),]
-    rownames(interactionData) <- 1:nrow(interactionData)
-  }
-  theObject@resultSummary <- interactionData
-  return(theObject)
+    # List of sources for which interactions were found with the genes given
+    uniqueSources <- unique(unlist(sapply(
+        theObject@data$interactions,
+        function(x) {unique(x$source)}, simplify = FALSE)))
+    
+    # Summarize interactions similar to web interface
+    interactionList <- lapply(theObject@data$geneName[
+        sapply(theObject@data$interactions, length) != 0],
+        getResultSummary, theObject@data, uniqueSources)
+    interactionData <- data.frame(do.call(rbind, interactionList),
+                                  stringsAsFactors = FALSE)
+    if(nrow(interactionData) > 0) {
+        # Convert DB and other columns to numeric
+        interactionData[,3:(ncol(interactionData) - 2)] <-
+            sapply(3:(ncol(interactionData) - 2),
+                   function(x) as.numeric(interactionData[,x]))
+        interactionData <- interactionData[
+                                order(as.numeric(interactionData$Score),
+                                                 decreasing = TRUE),]
+        rownames(interactionData) <- 1:nrow(interactionData)
+    }
+    theObject@resultSummary <- interactionData
+    return(theObject)
 })
 
 setGeneric(name = "setByGene",
@@ -140,28 +140,28 @@ setGeneric(name = "setDetailedResults",
 setMethod(f = "setDetailedResults",
           signature = "rDGIdbResult",
           definition = function(theObject) {
-            tmp <- do.call(rbind, apply(theObject@data, 1, function(x) {
-              nrow <- nrow(x$interactions)
-              if (nrow > 0) {
-                data.frame(cbind(rep(x$searchTerm, times = nrow),
-                                 rep(x$geneName, times = nrow),
-                                 x$interactions[,
+              tmp <- do.call(rbind, apply(theObject@data, 1, function(x) {
+                  nrow <- nrow(x$interactions)
+                  if (nrow > 0) {
+                      data.frame(cbind(rep(x$searchTerm, times = nrow),
+                                       rep(x$geneName, times = nrow),
+                                       x$interactions[,
                                             c('drugName', 'interactionTypes', 
-                                              'sources','pmids')]),
-                           stringsAsFactors = FALSE)
-              }
-            }))
-            tmp$interactionTypes <- 
-              sapply(tmp$interactionTypes, paste, collapse = ",")
-            tmp$sources <- sapply(tmp$sources, paste, collapse = ",")
-            tmp$pmids <- sapply(tmp$pmids, paste, collapse = ",")
-            colnames(tmp) <-
-              c('SearchTerm', 'Gene', 'Drug', 
-                'InteractionType', 'Source','PMIDs')
-            tmp <- tmp[order(tmp$SearchTerm),]
-            rownames(tmp) <- 1:nrow(tmp)
-            theObject@detailedResults <- tmp
-            return(theObject)
+                                            'sources','pmids')]),
+                                 stringsAsFactors = FALSE)
+                  }
+              }))
+              tmp$interactionTypes <- 
+                  sapply(tmp$interactionTypes, paste, collapse = ",")
+              tmp$sources <- sapply(tmp$sources, paste, collapse = ",")
+              tmp$pmids <- sapply(tmp$pmids, paste, collapse = ",")
+              colnames(tmp) <-
+                  c('SearchTerm', 'Gene', 'Drug', 
+                    'InteractionType', 'Source','PMIDs')
+              tmp <- tmp[order(tmp$SearchTerm),]
+              rownames(tmp) <- 1:nrow(tmp)
+              theObject@detailedResults <- tmp
+              return(theObject)
           })
 
 setGeneric(name = "setUnmatchedTerms",
@@ -222,8 +222,9 @@ getResultSummary <- function(gene, output, sources) {
   foundSources <- unique(unlist(output[idx,]$interactions[[1]]$sources))
   result <- #data.frame(cbind(output[idx,]$interactions[[1]]$drugName,
     as.data.frame(t(sapply(output[idx,]$interactions[[1]]$sources,
-                           function(x, y) { return(y %in% x) }, foundSources)), 
-                  stringsAsFactors = FALSE)
+                           function(x, y) { return(y %in% x) }, foundSources)),
+                            stringsAsFactors = FALSE)
+  if (nrow(result) == 1) {result <- t(result)} # result is vector
   dimnames(result) <- 
     list(output[idx,]$interactions[[1]]$drugName, foundSources)
   # Expand matrix to all possible DBs, set multiple occurances of
