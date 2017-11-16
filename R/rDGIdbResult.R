@@ -56,8 +56,8 @@ setMethod(f = "setResultSummary", definition = function(theObject) {
             sapply(3:(ncol(interactionData) - 2),
                    function(x) as.numeric(interactionData[,x]))
         interactionData <- interactionData[
-                                order(as.numeric(interactionData$Score),
-                                                 decreasing = TRUE),]
+            order(as.numeric(interactionData$Score),
+                  decreasing = TRUE),]
         rownames(interactionData) <- 1:nrow(interactionData)
     }
     theObject@resultSummary <- interactionData
@@ -224,7 +224,7 @@ getResultSummary <- function(gene, output, sources) {
     as.data.frame(t(sapply(output[idx,]$interactions[[1]]$sources,
                            function(x, y) { return(y %in% x) }, foundSources)),
                             stringsAsFactors = FALSE)
-  if (nrow(result) == 1) {result <- t(result)} # result is vector
+  if (length(foundSources) == 1) {result <- t(result)} # result is vector
   dimnames(result) <- 
     list(output[idx,]$interactions[[1]]$drugName, foundSources)
   # Expand matrix to all possible DBs, set multiple occurances of
