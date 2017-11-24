@@ -86,14 +86,14 @@ queryDGIdb <- function(genes,
     result <- setResultSummary(result)
     
     # Populate by gene table
-    #result <- setByGene(result)
+    result <- setByGene(result)
     
     # Populate search term summary
-    #result <- setSearchTermSummary(result)
+    result <- setSearchTermSummary(result)
     
     #Populate detailed results
-    #if (nrow(result@resultSummary) > 0)
-    #result <- setDetailedResults(result)
+    if (nrow(result@resultSummary) > 0)
+    result <- setDetailedResults(result)
   }
   
   return(result)
