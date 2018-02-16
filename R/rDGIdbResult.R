@@ -83,7 +83,9 @@ setMethod(f = "setByGene",
               sapply(theObject@data$interactions, function(x) {
                 length(unique(x$drugName)) } )
             tmp$DruggableGeneCategories <-
-              paste(theObject@data$geneCategories[[1]]$name, collapse = ",")
+                sapply(theObject@data$geneCategories, function(x) {
+                    paste(x$name, collapse=",")
+                })
             tmp <- tmp[order(tmp$SearchTerm),]
             theObject@byGene <- tmp
             return(theObject)
