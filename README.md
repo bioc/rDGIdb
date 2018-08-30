@@ -10,8 +10,9 @@ rDGIdb is available on [Bioconductor](http://bioconductor.org/packages/rDGIdb/).
 
 Type the following commands into your R console to install the package:
 
-`source("https://bioconductor.org/biocLite.R")
-biocLite("rDGIdb")`
+`if (!requireNamespace("BiocManager", quietly=TRUE))`
+    `install.packages("BiocManager")`
+BiocManager::install("rDGIdb")`
 
 ## Usage
 
