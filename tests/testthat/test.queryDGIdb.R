@@ -20,7 +20,7 @@ test_that("Wrong gene names becomes unmatched terms", {
 test_that("Query DGIdb and result summary works", {
     result <- queryDGIdb(genes = "BRAF")
     expect_false(is.null(result@resultSummary) || is.na(result@resultSummary))
-    expect_true(nrow(result@resultSummary > 0) & ncol(result@resultSummary > 0))
+    expect_true(nrow(result@resultSummary) > 0 && ncol(result@resultSummary) > 0)
 })
 
 test_that("Returns the right result", {
