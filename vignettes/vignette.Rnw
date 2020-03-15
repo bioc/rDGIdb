@@ -58,7 +58,7 @@ are optional. These optional arguments are used as filters. If they are not
 provided, the query returns all results for a specific gene. See further below
 for more details on optional arguments.
 
-<<query-dgidb-1, echo=TRUE, results='hide'>>=
+<<query-dgidb-first, echo=TRUE, results='hide'>>=
 result <- queryDGIdb(genes)
 @
 

@@ -14,7 +14,7 @@ resourceVersions <- function() {
     version <- array[interactionId + 17]
     result <- data.frame(cbind(name, version), stringsAsFactors = FALSE)
     colnames(result) <- c('Name', 'Version')
-    rownames(result) <- 1:nrow(result)
+    rownames(result) <- seq_len(nrow(result))
     result <- result[order(result$Name),]
     return(result)
 }

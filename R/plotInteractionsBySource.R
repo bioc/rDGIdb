@@ -1,13 +1,13 @@
 plotInteractionsBySource <- function(queryResult, ...) {
-
+    
     if (missing(queryResult)) {
         stop("Input argument 'queryResult' missing.")
-    } else if (class(queryResult) != 'rDGIdbResult') {
+    } else if (!is(queryResult, 'rDGIdbResult')) {
         stop("Wrong input format, object of class 'rDGIdbResult' required.")
     } else if (nrow(resultSummary(queryResult)) == 0) {
         stop("Input has no interactions to plot.")
     }
-
+    
     data <- resultSummary(queryResult)
     columnSums <- sort(colSums(data[,3:(ncol(data) - 2)]), decreasing = TRUE)
     op <- par(mar = c(5,13,3,1))
