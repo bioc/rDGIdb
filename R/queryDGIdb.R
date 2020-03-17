@@ -6,12 +6,11 @@ queryDGIdb <- function(genes,
     
     if (missing(genes)) stop("Need to specify a vector of genes to query.")
     
-    if (is.null(genes) || length(genes) == 0 ||
-        !is.character(genes) || genes == "") {
+    if (is.null(genes) || length(genes) == 0 || !is.character(genes)) {
         stop("Need to specify a non-empty vector of genes names.")
     }
     
-    if (missing(sourceDatabases) | is.null(sourceDatabases)) {
+    if (missing(sourceDatabases) || is.null(sourceDatabases)) {
         databases <- NULL
     } else {
         databases <- match.arg(arg = sourceDatabases,
@@ -19,7 +18,7 @@ queryDGIdb <- function(genes,
                                several.ok = TRUE)
         databases <- paste(databases, collapse = ",")
     }
-    if (missing(geneCategories) | is.null(geneCategories)) {
+    if (missing(geneCategories) || is.null(geneCategories)) {
         categories <- NULL
     } else {
         categories <- match.arg(arg = geneCategories,
@@ -27,7 +26,7 @@ queryDGIdb <- function(genes,
                                 several.ok = TRUE)
         categories <- paste(categories, collapse=",")
     }
-    if (missing(interactionTypes) | is.null(interactionTypes)) {
+    if (missing(interactionTypes) || is.null(interactionTypes)) {
         interactions <- NULL
     } else {
         interactions <- match.arg(arg = interactionTypes,
