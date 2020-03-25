@@ -35,7 +35,7 @@ test_that("Returns the right result", {
 
 test_that("Resource versions are returned", {
     versions <- resourceVersions()
-    expect_false(is.null(versions) || is.na(versions))
+    expect_false(is.null(versions))
     expect_true(nrow(versions) > 0 && ncol(versions) == 2)
 })
 
