@@ -5,12 +5,12 @@ getWebsite <- function(url) {
 }
 
 resourceVersions <- function() {
-    url <- "http://dgidb.genome.wustl.edu/sources/#"
+    url <- "https://dgidb.org/sources/#"
     text <- getWebsite(url)
     array <- strsplit(text, '\n')[[1]]
     interactionId <- grep('class=\'interaction', array)
     name <- sapply(array[interactionId + 4], 
-                   function(x) { strsplit(x, '<|>', )[[1]][3] } )
+                   function(x) { strsplit(x, '<|>')[[1]][3] } )
     version <- array[interactionId + 17]
     result <- data.frame(cbind(name, version), stringsAsFactors = FALSE)
     colnames(result) <- c('Name', 'Version')

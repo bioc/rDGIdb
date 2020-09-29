@@ -1,13 +1,13 @@
 Package: rDGIdb
 Type: Package
 Title: R Wrapper for DGIdb
-Version: 1.13.1
+Version: 1.14.1
 Author: Thomas Thurnherr, Franziska Singer, Daniel J. Stekhoven, and Niko Beerenwinkel
 Maintainer: Thomas Thurnherr <thomas.thurnherr@gmail.com>
 Description: The rDGIdb package provides a wrapper for the Drug Gene
         Interaction Database (DGIdb). For simplicity, the wrapper query
         function and output resembles the user interface and results
-        format provided on the DGIdb website (http://www.dgidb.org/).
+        format provided on the DGIdb website (https://www.dgidb.org/).
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports: jsonlite,httr,methods,graphics

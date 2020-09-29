@@ -67,7 +67,7 @@ result <- queryDGIdb(genes)
 After querying, we access the \verb+rDGIdbResult+ object that was returned by
 \verb+queryDGIdb+. The S4 class \verb+rDGIdbResult+ contains several tables
 (\verb+data.frame+), which roughly reflect each result tab on the DGIdb web
-interface at \url{http://dgidb.genome.wustl.edu}.
+interface at \url{https://dgidb.org}.
 
 The results are available in the following four formats:
 
