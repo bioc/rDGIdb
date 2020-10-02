@@ -222,17 +222,16 @@ getResultSummary <- function(gene, output, sources) {
     idx <- which(output$geneName == gene)
     # Prepare table of interactions (drug vs. interaction DB)
     foundSources <- unique(unlist(output[idx,]$interactions[[1]]$sources))
-    result <- #data.frame(cbind(output[idx,]$interactions[[1]]$drugName,
-        as.data.frame(t(sapply(output[idx,]$interactions[[1]]$sources,
-                               function(x, y) { return(y %in% x) }, foundSources)),
-                      stringsAsFactors = FALSE)
+    result <- as.data.frame(t(sapply(output[idx,]$interactions[[1]]$sources,
+                                     function(x, y) { return(y %in% x) }, foundSources)),
+                            stringsAsFactors = FALSE)
     if (length(foundSources) == 1) {result <- t(result)} # result is vector
     dimnames(result) <- 
-        list(output[idx,]$interactions[[1]]$drugName, foundSources)
+        list(output[idx,]$interactions[[1]]$drugName, make.names(foundSources))
     # Expand matrix to all possible DBs, set multiple occurances of
     # interactions to one, and add gene and drug names
     tmp <- data.frame(matrix(0, nrow = nrow(result), ncol = 4 + length(sources),
-                             dimnames = list(NULL,c('Gene', 'Drug', sources, 'PMID','Score'))),
+                             dimnames = list(NULL,c('Gene', 'Drug', make.names(sources), 'PMID','Score'))),
                       stringsAsFactors = FALSE)
     tmp[,colnames(result)] <- 1*result
     tmp[tmp > 1] <- 1 # Remove double counts
@@ -241,16 +240,5 @@ getResultSummary <- function(gene, output, sources) {
     tmp$Gene <- rep(gene, nrow(tmp))
     tmp$Drug <- rownames(result)
     tmp$PMID <- sapply(output[idx,]$interactions[[1]]$pmids, paste, collapse=",")
-    # Determine type of interaction
-    #resultType <- table(output[idx,]$interactions[[1]]$drugName,
-    #                    output[idx,]$interactions[[1]]$interactionType)
-    #if (nrow(tmp) == 1) {
-    #    tmp$Type <- paste(colnames(resultType), collapse = ",")
-    #} else {
-    #    listResult <- lapply(split(resultType, seq(nrow(resultType))),
-    #                         function(x, names) { names[x>0] },
-    #                         colnames(resultType))
-    #    tmp$Type <- sapply(listResult, paste, collapse=',')
-    #}
     return(as.matrix(tmp))
 }
