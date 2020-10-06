@@ -226,8 +226,7 @@ getResultSummary <- function(gene, output, sources) {
                                      function(x, y) { return(y %in% x) }, foundSources)),
                             stringsAsFactors = FALSE)
     if (length(foundSources) == 1) {result <- t(result)} # result is vector
-    dimnames(result) <- 
-        list(output[idx,]$interactions[[1]]$drugName, make.names(foundSources))
+    colnames(result) <- make.names(foundSources)
     # Expand matrix to all possible DBs, set multiple occurances of
     # interactions to one, and add gene and drug names
     tmp <- data.frame(matrix(0, nrow = nrow(result), ncol = 4 + length(sources),
@@ -238,7 +237,7 @@ getResultSummary <- function(gene, output, sources) {
     tmp$Score <- rowSums(tmp) + 
         sapply(output[idx,]$interactions[[1]]$pmids, length)
     tmp$Gene <- rep(gene, nrow(tmp))
-    tmp$Drug <- rownames(result)
+    tmp$Drug <- output[idx,]$interactions[[1]]$drugName
     tmp$PMID <- sapply(output[idx,]$interactions[[1]]$pmids, paste, collapse=",")
     return(as.matrix(tmp))
 }
