@@ -48,7 +48,7 @@ queryDGIdb <- function(genes,
     # Check internet connection
     tryCatch({
         msg <- ""
-        r <- GET("https://dgidb.org/api/v2/interaction_types.json")
+        r <- GET("https://old.dgidb.org/api/v2/interaction_types.json")
         if (status_code(r) != 200) {
             msg <- "DGIdb service not available."
         }
@@ -102,7 +102,7 @@ queryDGIdb <- function(genes,
 # long list of genes to be queried.
 queryDgidbPost <- function(genes, interactionSources, geneCategories,
                            interactionTypes) {
-    url <- "https://dgidb.org/api/v2/interactions.json"
+    url <- "https://old.dgidb.org/api/v2/interactions.json"
     body <- list(genes = paste(genes, collapse = ","),
                  interaction_sources = paste(interactionSources, collapse = ","),
                  gene_categories = paste(geneCategories, collapse = ","),
@@ -118,19 +118,19 @@ queryDgidbPost <- function(genes, interactionSources, geneCategories,
 }
 
 sourceDatabases <- function() {
-    url <- "https://dgidb.org/api/v2/interaction_sources.json"
+    url <- "https://old.dgidb.org/api/v2/interaction_sources.json"
     result <- queryAPIget(url)
     return(result)
 }
 
 geneCategories <- function() {
-    url <- "https://dgidb.org/api/v2/gene_categories.json"
+    url <- "https://old.dgidb.org/api/v2/gene_categories.json"
     result <- queryAPIget(url)
     return(result)
 }
 
 interactionTypes <- function() {
-    url <- "https://dgidb.org/api/v2/interaction_types.json"
+    url <- "https://old.dgidb.org/api/v2/interaction_types.json"
     result <- queryAPIget(url)
     return(result)
 }
