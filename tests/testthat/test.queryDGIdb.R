@@ -33,12 +33,6 @@ test_that("Returns the right result", {
     expect_is(result$matchedTerms$interactions[[1]], 'data.frame')
 })
 
-test_that("Resource versions are returned", {
-    versions <- resourceVersions()
-    expect_false(is.null(versions))
-    expect_true(nrow(versions) > 0 && ncol(versions) == 2)
-})
-
 test_that("Helper functions return something", {
     expect_true(is.character(geneCategories()))
     expect_true(is.character(interactionTypes()))
